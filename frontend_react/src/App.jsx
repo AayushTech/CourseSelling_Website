@@ -3,6 +3,8 @@ import Card from "@mui/material/Card";
 import SignUp from "./SignUp";
 import AppBar from "./AppBar";
 import "./index.css";
+import SignIn from "./SignIn";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -16,8 +18,14 @@ function App() {
           backgroundColor: "#eeeeee",
         }}
       >
-        <AppBar></AppBar>
-        <SignUp></SignUp>
+        <Router>
+          <AppBar></AppBar>
+
+          <Routes>
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+          </Routes>
+        </Router>
       </div>
     </>
   );
