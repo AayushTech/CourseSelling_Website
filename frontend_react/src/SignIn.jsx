@@ -1,8 +1,23 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Card, Typography } from "@mui/material";
+import { useState } from "react";
+import axios from "axios";
 
 function SignIn() {
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+  const handleSignin = async () => {
+    try {
+      let response = await axios.post("http://localhost:3000/admin/login", {
+        username: email,
+        password: password,
+      });
+      console.log("signin successfully", response.data);
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
   return (
     <>
       <div
@@ -21,6 +36,7 @@ function SignIn() {
             id="outlined-basic"
             label="UserId"
             variant="outlined"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <br />
           <br />
@@ -29,10 +45,12 @@ function SignIn() {
             id="outlined-basic"
             label="Password"
             variant="outlined"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <br />
           <br />
-          <Button variant="contained" size="large">
+          <Button variant="contained" size="large" onClick={handleSignin}>
             Signin
           </Button>
         </Card>
